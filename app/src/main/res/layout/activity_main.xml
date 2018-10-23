@@ -56,16 +56,16 @@
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="120sp"
-            android:layout_marginRight="120sp"
             android:layout_marginTop="20sp"
-            android:textColor="@android:color/white"
-            android:textSize="25sp"
+            android:layout_marginRight="120sp"
             android:background="@drawable/button"
-            android:text="Вхід" />
+            android:text="Вхід"
+            android:textColor="@android:color/white"
+            android:textSize="25sp" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
