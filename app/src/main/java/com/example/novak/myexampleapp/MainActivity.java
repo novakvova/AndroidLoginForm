@@ -1,10 +1,12 @@
 package com.example.novak.myexampleapp;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.*;
@@ -16,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     final private String host="https://27s9.azurewebsites.net/";
     private Button btn_login;
     private EditText txt_email, txt_password;
+    private TextView tv_result;
+
 
 
     @Override
@@ -23,11 +27,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         login();
+        new AjaxRequest().execute("12");
     }
     public void login() {
         btn_login = (Button)findViewById(R.id.btnLogin);
         txt_email = (EditText)findViewById(R.id.txtEmail);
         txt_password = (EditText)findViewById(R.id.txtPassword);
+        tv_result = (TextView)findViewById(R.id.result_work);
 
         btn_login.setOnClickListener(
                 new View.OnClickListener() {
@@ -96,5 +102,30 @@ public class MainActivity extends AppCompatActivity {
 
         return responseSB.toString();
 
+    }
+
+    class AjaxRequest extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... arg) {
+            try {
+                HttpsHelper helper = new HttpsHelper(host);
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("username", "ww@ww.ww");
+                parameters.put("password", "Qwerty1-");
+                parameters.put("grant_type", "password");
+                String data = helper.postFormSend("Token", parameters);
+                return data;
+                //Thread.sleep(10000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "Hello Peter "+ arg[0];
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            tv_result.setText(s);
+        }
     }
 }

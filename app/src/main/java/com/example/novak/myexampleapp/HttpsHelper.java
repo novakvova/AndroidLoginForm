@@ -82,13 +82,17 @@ public class HttpsHelper {
             return line;
 
         } catch(Exception ex) {
-            ex.printStackTrace();
+            if(conn!=null) {
+                conn.disconnect();
+            }
+            return ex.toString();
+            //ex.printStackTrace();
         } finally {
             if(conn!=null) {
                 conn.disconnect();
             }
         }
-        return null;
+        //return null;
     }
 
     private String processRequestParameters(Map<String, String> parameters) {
